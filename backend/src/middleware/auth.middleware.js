@@ -12,6 +12,7 @@ export const protectRoute = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
     if (!decoded) {
       return res.status(401).json({ message: "Unauthorized - Invalid Token" });
     }
@@ -26,7 +27,7 @@ export const protectRoute = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log("Error in portectRoute middleware", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.log("Error in protectRoute middleware: ", error.message);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
